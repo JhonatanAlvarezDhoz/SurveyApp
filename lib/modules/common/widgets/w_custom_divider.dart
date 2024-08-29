@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:empty_project/themes/theme_colors.dart';
+import 'package:survey_app/themes/theme_colors.dart';
 
 class CustomDivider extends Divider {
   final Color? newColor;

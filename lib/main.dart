@@ -1,7 +1,7 @@
-import 'package:empty_project/routes/app_pages.dart';
-import 'package:empty_project/routes/app_routes.dart';
-import 'package:empty_project/themes/colors.dart';
-import 'package:empty_project/utils/injector.dart';
+import 'package:survey_app/routes/app_pages.dart';
+import 'package:survey_app/routes/app_routes.dart';
+import 'package:survey_app/themes/colors.dart';
+import 'package:survey_app/utils/injector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

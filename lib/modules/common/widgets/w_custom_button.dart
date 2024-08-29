@@ -1,5 +1,5 @@
-import 'package:empty_project/modules/common/widgets/w_custom_text.dart';
-import 'package:empty_project/themes/theme_colors.dart';
+import 'package:survey_app/modules/common/widgets/w_custom_text.dart';
+import 'package:survey_app/themes/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

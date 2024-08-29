@@ -1,5 +1,5 @@
-import 'package:empty_project/modules/home/ui/page/p_home.dart';
-import 'package:empty_project/routes/app_routes.dart';
+import 'package:survey_app/modules/home/ui/page/p_home.dart';
+import 'package:survey_app/routes/app_routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
