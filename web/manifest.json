@@ -1,6 +1,6 @@
 {
-    "name": "survey_app",
-    "short_name": "survey_app",
+    "name": "empty_project",
+    "short_name": "empty_project",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
