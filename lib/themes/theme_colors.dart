@@ -6,13 +6,13 @@ class ThemeColors extends Color {
   ThemeColors._(super.value);
 
   /// Defines the primary color used in the application, typically used for primary elements.
-  static const Color primary = Color(0xffe95c0c);
+  static const Color primary = Color(0xff4000fb);
 
   /// Defines the primary dark color used in the application, typically used for primary elements.
-  static const Color primaryDark = Color.fromARGB(255, 144, 66, 20);
+  static const Color primaryDark = Color(0xff18163d);
 
   /// Defines a lighter shade of the primary color, often used for highlights or accents.
-  static const Color primaryLight = Color(0xffff7526);
+  static const Color primaryLight = Color(0xfffffeff);
 
   /// Defines a secondary color used in the application, typically for secondary elements.
   static const Color secondary = Color(0xff253c80);

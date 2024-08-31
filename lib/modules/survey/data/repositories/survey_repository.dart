@@ -12,8 +12,8 @@ class SurveyRepository {
     return surveyList;
   }
 
-  Future<List<Question>> getQuestions(int survey) async {
-    final url = Uri.https("deijosedevelop.pythonanywhere.com", "/questions",{'survey_id': survey.toString()});
+  Future<List<Question>> getQuestions() async {
+    final url = Uri.https("deijosedevelop.pythonanywhere.com", "/questions");
     final response = await http.get(url);
     final questionList = Question.fromJsonList(response.body);
 
@@ -21,8 +21,8 @@ class SurveyRepository {
     return questionList;
   }
 
-  Future<List<Option>> getOptions(int question) async {
-    final url = Uri.https("deijosedevelop.pythonanywhere.com", "/options", {'question_id': question.toString()});
+  Future<List<Option>> getOptions() async {
+    final url = Uri.https("deijosedevelop.pythonanywhere.com", "/options");
     final response = await http.get(url);
     final optionList = Option.fromJsonList(response.body);
     //throw UnimplementedError();
