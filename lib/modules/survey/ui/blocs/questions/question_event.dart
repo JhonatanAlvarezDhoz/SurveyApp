@@ -10,11 +10,10 @@ abstract class QuestionEvent extends Equatable {
 
 
 class GetQuestionList extends QuestionEvent {
-  final int surveyId;
 
-  const GetQuestionList(this.surveyId);
+  const GetQuestionList();
 
   @override
-  List<Object> get props => [surveyId];
+  List<Object> get props => [];
 }
 

@@ -1,3 +1,4 @@
+import 'package:empty_project/modules/survey/data/entities/option_model.dart';
 import 'package:empty_project/modules/survey/ui/blocs/options/option_bloc.dart';
 import 'package:empty_project/modules/survey/ui/blocs/options/option_event.dart';
 import 'package:empty_project/modules/survey/ui/blocs/options/option_state.dart';
@@ -21,14 +22,13 @@ class _RandomSurveyState extends State<RandomSurvey> {
   late SurveyBloc surveyBloc;
   late QuestionListBloc questionListBloc;
   late OptionListBloc optionListBloc;
-  late int question;
+  late int questionOrder;
   //late int option;
 
   @override
   void initState() {
     super.initState();
-    question = 1;
-    //option = 1;
+    questionOrder = 1;
     surveyBloc = BlocProvider.of<SurveyBloc>(context);
     surveyBloc.add(const GetSurvey());
     questionListBloc = BlocProvider.of<QuestionListBloc>(context);
@@ -47,7 +47,8 @@ class _RandomSurveyState extends State<RandomSurvey> {
         if (state is SurveyLoading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is SurveyLoaded) {
-          questionListBloc.add(GetQuestionList(state.survey.id));
+          print('Survey ID: ${state.survey.id}');
+          questionListBloc.add(GetQuestionList());
           return Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
@@ -70,7 +71,7 @@ class _RandomSurveyState extends State<RandomSurvey> {
                 ),
                 QuestionCard(
                   surveyId: state.survey.id,
-                  question: question,
+                  questionOrder: questionOrder,
                 ),
                 const SizedBox(
                   height: 20,
@@ -80,7 +81,7 @@ class _RandomSurveyState extends State<RandomSurvey> {
                     FloatingActionButton(
                   onPressed: () {
                     setState(() {
-                      question > 1 ? question -= 1 : question = question;
+                      questionOrder > 1 ? questionOrder -= 1 : questionOrder = questionOrder;
                     });
                   },
                   child: const Icon(Icons.arrow_back),
@@ -90,7 +91,7 @@ class _RandomSurveyState extends State<RandomSurvey> {
                     FloatingActionButton(
                   onPressed: () {
                     setState(() {
-                      question < 10 ? question += 1 : question = question;
+                      questionOrder < 10 ? questionOrder += 1 : questionOrder = questionOrder;
                     });
                   },
                   child: const Icon(Icons.arrow_forward),
@@ -111,19 +112,16 @@ class _RandomSurveyState extends State<RandomSurvey> {
 
 class QuestionCard extends StatefulWidget {
   final int surveyId;
-  final int question;
+  final int questionOrder;
   const QuestionCard(
-      {super.key, required this.surveyId, required this.question});
+      {super.key, required this.surveyId, required this.questionOrder});
 
   @override
   _QuestionCardState createState() => _QuestionCardState();
 }
 
 class _QuestionCardState extends State<QuestionCard> {
-  String _selectedOption = '';
-
-  List<String> options = ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'];
-
+  
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<QuestionListBloc, QuestionListState>(
@@ -131,10 +129,12 @@ class _QuestionCardState extends State<QuestionCard> {
         if (state is QuestionListLoading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is QuestionListLoaded) {
+          
           final questionList = state.questionList
               .where((question) => question.surveyId == widget.surveyId)
               .toList();
-          final question = questionList[widget.question-1];
+          final question = questionList[widget.questionOrder-1];
+          print('Question ID: ${question.id}');
           return Card(
             elevation: 4,
             shape: RoundedRectangleBorder(
@@ -142,21 +142,65 @@ class _QuestionCardState extends State<QuestionCard> {
             ),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Column(
+              //aqui empiezan el contenido de la Card
+              child: Options(
+                surveyId: widget.surveyId, 
+                questionId: question.id, 
+                questionOrder: widget.questionOrder, 
+                questionText: question.questionText,),
+            ),
+          );
+        } else {
+          return const Center(child: Text('No hay elementos cargados.'));
+        }
+      },
+    );
+  }
+}
+
+class Options extends StatefulWidget {
+  final int surveyId;
+  final int questionId;
+  final int questionOrder;
+  final String questionText;
+  const Options({
+    super.key,
+    required this.questionId, required this.questionText, required this.questionOrder, required this.surveyId,
+  });
+
+  @override
+  State<Options> createState() => _OptionsState();
+}
+
+class _OptionsState extends State<Options> {
+  Option _selectedOption = Option(id: 0, optionText: '', questionId: 0);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<OptionListBloc, OptionListState>(
+        builder: (context, state) {
+      if (state is OptionListLoading) {
+        return const Center(child: CircularProgressIndicator());
+      } else if (state is OptionListLoaded) {
+        final optionList = state.optionList
+            .where((option) => option.questionId == widget.questionId)
+            .toList();
+            print('Options IDs: ${optionList.toString()}');
+        return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    '${widget.question}. ${question.questionText}',
-                    style: TextStyle(
+                    '${widget.questionOrder}. ${widget.questionText}',
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   SizedBox(height: 16),
                   Column(
-                    children: options.map((option) {
+                    children: optionList.map((option) {
                       return RadioListTile(
-                        title: Text(option),
+                        title: Text(option.optionText),
                         value: option,
                         groupValue: _selectedOption,
                         onChanged: (value) {
@@ -168,53 +212,8 @@ class _QuestionCardState extends State<QuestionCard> {
                     }).toList(),
                   ),
                   SizedBox(height: 16),
-                  Text(
-                    'Opción seleccionada: $_selectedOption',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.blue,
-                    ),
-                  ),
                 ],
-              ),
-            ),
-          );
-        } else {
-          return const Center(child: Text('No hay elementos cargados.'));
-        }
-      },
-    );
-  }
-}
-
-class Options extends StatelessWidget {
-  final int questionId;
-  const Options({
-    super.key,
-    required this.questionId,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<OptionListBloc, OptionListState>(
-        builder: (context, state) {
-      if (state is OptionListLoading) {
-        return const Center(child: CircularProgressIndicator());
-      } else if (state is OptionListLoaded) {
-        final optionList = state.optionList
-            .where((option) => option.questionId == questionId)
-            .toList();
-        return Expanded(
-          child: ListView.builder(
-              padding: const EdgeInsets.all(10),
-              itemCount: optionList.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text("${index + 1}. ${optionList[index].optionText}"),
-                );
-              }),
-        );
+              );
       } else {
         return const Center(child: Text('No hay elementos cargados.'));
       }

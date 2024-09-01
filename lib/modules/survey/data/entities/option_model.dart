@@ -31,4 +31,10 @@ class Option {
         "option_text": optionText,
         "question_id": questionId,
     };
+
+    @override
+  String toString() {
+    // TODO: implement toString
+    return this.id.toString();
+  }
 }
