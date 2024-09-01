@@ -102,7 +102,11 @@ class _RandomSurveyState extends State<RandomSurvey> {
                 ),
                 
                   ],
-                )
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                
               ],
             ),
           );
@@ -110,7 +114,14 @@ class _RandomSurveyState extends State<RandomSurvey> {
           return const Center(child: Text('No hay elementos cargados.'));
         }
       }),
-    ));
+      floatingActionButton: FloatingActionButton(
+                  onPressed: (){
+                    surveyBloc.add(const GetSurvey());
+                  },
+                  child: const Icon(Icons.refresh),
+                  ),
+    )
+    );
   }
 }
 

@@ -53,6 +53,7 @@ class _OptionsState extends State<Options> {
                           setState(() {
                             _selectedOption = value!;
                           });
+                          print('Option Selected: ${_selectedOption.optionText}');
                         },
                       );
                     }).toList(),
