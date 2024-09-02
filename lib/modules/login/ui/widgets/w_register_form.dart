@@ -129,28 +129,6 @@ class _RegisterFormState extends State<RegisterForm> {
                         ],
                       ),
                       gapH20,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                              width: constraints.maxWidth * 0.35,
-                              child: const CustomDivider(
-                                newColor: ThemeColors.tertiary,
-                                size: 1,
-                              )),
-                          Center(
-                              child: CustomText(
-                            text: ' o ',
-                          )),
-                          SizedBox(
-                              width: constraints.maxWidth * 0.35,
-                              child: const CustomDivider(
-                                newColor: ThemeColors.tertiary,
-                                size: 1,
-                              )),
-                        ],
-                      ),
-                      gapH20,
                       const SocialMediaIcons()
                     ],
                   ),
