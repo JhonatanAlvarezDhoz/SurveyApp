@@ -6,15 +6,17 @@ import 'package:survey_app/modules/common/widgets/w_rounded_text_form_field.dart
 import 'package:survey_app/modules/common/widgets/w_social_media_icons.dart';
 import 'package:survey_app/modules/common/widgets/w_theme_button.dart';
 import 'package:survey_app/modules/common/widgets/widgets.dart';
+import 'package:survey_app/routes/app_routes.dart';
+import 'package:survey_app/themes/theme_colors.dart';
 
-class RegisterForm extends StatefulWidget {
-  const RegisterForm({super.key, required this.formKey});
+class LoginForm extends StatefulWidget {
+  const LoginForm({super.key, required this.formKey});
   final GlobalKey<FormBuilderState> formKey;
   @override
-  State<RegisterForm> createState() => _RegisterFormState();
+  State<LoginForm> createState() => _LoginFormState();
 }
 
-class _RegisterFormState extends State<RegisterForm> {
+class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
@@ -34,13 +36,13 @@ class _RegisterFormState extends State<RegisterForm> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomText(
-                          text: "Hola!",
+                          text: "Bienvenido!",
                           fontSize: 60,
                           fontWeight: FontWeight.bold,
                         ),
                         gapH12,
                         CustomText(
-                          text: "Crea una nueva cuenta",
+                          text: "Ingresa con tus datos!",
                           fontSize: 20,
                           fontWeight: FontWeight.w300,
                         ),
@@ -52,12 +54,6 @@ class _RegisterFormState extends State<RegisterForm> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       RoundedTextFormField(
-                        name: 'user_name',
-                        hintText: 'Ingresa tu nombre de usuario',
-                        maxWidth: constraints.maxWidth,
-                      ),
-                      gapH32,
-                      RoundedTextFormField(
                         name: 'email',
                         hintText: 'Ingresa tu email',
                         maxWidth: constraints.maxWidth,
@@ -68,21 +64,38 @@ class _RegisterFormState extends State<RegisterForm> {
                         hintText: 'Ingresa tu contraseña',
                         maxWidth: constraints.maxWidth,
                       ),
-                    ],
-                  ),
-                  gapH32,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                      gapH32,
                       ThemeButton(
-                        text: 'Registrase',
+                        text: 'Iniciar Sesion',
                         buttonSize: const Size(250, 50),
                         borderRadius: BorderRadius.circular(8),
-                      )
+                      ),
+                      gapH20,
+                      CustomText(
+                        text: 'Olvidaste tus credenciales??',
+                        color: ThemeColors.primary,
+                      ),
                     ],
                   ),
                   gapH20,
-                  const SocialMediaIcons()
+                  SocialMediaIcons(
+                    footer: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomText(text: 'No estas registrado?'),
+                        gapW4,
+                        GestureDetector(
+                          child: CustomText(
+                            text: 'Registrate!',
+                            color: ThemeColors.primary,
+                          ),
+                          onTap: () {
+                            Navigator.pushNamed(context, AppRoutes.register);
+                          },
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             );
