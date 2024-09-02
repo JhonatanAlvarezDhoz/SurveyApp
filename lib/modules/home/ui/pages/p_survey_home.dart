@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../surveys/ui/pages/p_random_survey.dart';
 
 class SurveyHome extends StatelessWidget {
   const SurveyHome({super.key});
@@ -12,7 +13,7 @@ class SurveyHome extends StatelessWidget {
         title: const Text('Bienvenido Usuario'),
       ),
       body: const Center(
-        child: Text('Proximamente Encuestas aqui..!!'),
+        child: RandomSurvey(),
       ),
     );
   }
