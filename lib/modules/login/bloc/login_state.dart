@@ -12,28 +12,28 @@ class LoginState extends Equatable {
     this.loginFormKey,
     this.loginStatus = LoginStatus.initial,
     this.errorText = "",
+    this.message = "",
   });
 
   final GlobalKey<FormBuilderState>? loginFormKey;
   final LoginStatus loginStatus;
   final String errorText;
+  final String message;
 
   LoginState copyWith({
     GlobalKey<FormBuilderState>? loginFormKey,
-    LoginStatus Function()? loginStatus,
-    String Function()? errorText,
+    LoginStatus? loginStatus,
+    String? errorText,
+    String? message,
   }) {
     return LoginState(
       loginFormKey: loginFormKey ?? this.loginFormKey,
-      loginStatus: loginStatus != null ? loginStatus() : this.loginStatus,
-      errorText: errorText != null ? errorText() : this.errorText,
+      loginStatus: loginStatus ?? this.loginStatus,
+      errorText: errorText ?? this.errorText,
+      message: message ?? this.message,
     );
   }
 
   @override
-  List<Object?> get props => [
-        loginFormKey,
-        loginStatus,
-        errorText,
-      ];
+  List<Object?> get props => [loginFormKey, loginStatus, errorText, message];
 }

@@ -56,7 +56,7 @@ class _RegisterFormState extends State<RegisterForm> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           RoundedTextFormField(
-                            name: 'user_name',
+                            name: 'username',
                             hintText: 'Ingresa tu nombre de usuario',
                             maxWidth: constraints.maxWidth,
                             validator: FormBuilderValidators.compose([
@@ -99,16 +99,10 @@ class _RegisterFormState extends State<RegisterForm> {
                                 errorText: "La contraseña es requerida",
                               ),
                               FormBuilderValidators.minLength(
-                                8,
+                                5,
                                 errorText:
-                                    "La contraseña debe tener al menos 8 caracteres.",
+                                    "La contraseña debe tener al menos 5 caracteres.",
                               ),
-                              FormBuilderValidators.match(
-                                RegExp(
-                                    r'^(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$'),
-                                errorText:
-                                    "La contraseña debe tener al menos 8 caracteres, un carácter especial, un número, una mayúscula y una minúscula.",
-                              )
                             ]),
                           ),
                         ],
@@ -123,7 +117,7 @@ class _RegisterFormState extends State<RegisterForm> {
                             borderRadius: BorderRadius.circular(8),
                             onPressed: () {
                               context.read<LoginBloc>().add(RegisterSendForm(
-                                  loginFormKey: widget.formKey));
+                                  registerFormKey: widget.formKey));
                             },
                           )
                         ],
