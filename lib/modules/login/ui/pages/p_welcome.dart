@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:survey_app/modules/common/constants/app_sizes.dart';
-import 'package:survey_app/modules/common/widgets/w_custom_app_bar.dart';
 import 'package:survey_app/modules/common/widgets/w_custom_text.dart';
 import 'package:survey_app/modules/common/widgets/w_theme_button.dart';
 import 'package:survey_app/routes/app_routes.dart';
