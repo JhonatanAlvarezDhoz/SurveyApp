@@ -6,11 +6,13 @@ class SurveyHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
-
+    return Scaffold(
+      backgroundColor: Colors.white, // Fondo blanco
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text('Bienvenido Usuario'),
+        backgroundColor: Colors.white, // Fondo blanco para AppBar
+        elevation: 0, // Eliminar la sombra del AppBar
       ),
       body: const Center(
         child: RandomSurvey(),
