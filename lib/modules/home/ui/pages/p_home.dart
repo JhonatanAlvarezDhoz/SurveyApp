@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
                   contentText: "Cerrar sesión",
                   titleText: "¿Seguro que deseas cerrar la sesión?",
                   onAction: () {
-                   /*  context.read<LoginBloc>().add(const LogoutEvent());
+                    /*  context.read<LoginBloc>().add(const LogoutEvent());
                     Navigator.of(context).pushNamedAndRemoveUntil(
                         AppRoutes.select, (_) => false); */
                   },
@@ -67,4 +67,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
