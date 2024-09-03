@@ -1,40 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:survey_app/modules/common/constants/app_sizes.dart';
-import 'package:survey_app/modules/common/widgets/widgets.dart';
+import 'package:survey_app/modules/common/widgets/w_custom_text.dart';
 import 'package:survey_app/themes/theme_colors.dart';
-
-class SurveyHome extends StatelessWidget {
-  const SurveyHome({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white, // Fondo blanco
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text('Bienvenido Usuario'),
-        backgroundColor: Colors.white, // Fondo blanco para AppBar
-        elevation: 0, // Eliminar la sombra del AppBar
-      ),
-      body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          return Container(
-            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
-            height: constraints.maxHeight,
-            width: constraints.maxWidth,
-            child: const SingleChildScrollView(
-              child: Column(
-                children: [
-                  CustomCard(),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-}
 
 class CustomCard extends StatelessWidget {
   final BoxConstraints constraints;
