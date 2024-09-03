@@ -3,6 +3,7 @@ part of 'login_bloc.dart';
 enum LoginStatus {
   initial,
   success,
+  registered,
   loading,
   error,
 }
