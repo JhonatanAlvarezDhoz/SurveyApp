@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 import 'package:survey_app/modules/common/data/repositoty/repository.dart';
@@ -23,7 +22,6 @@ class LoginRepository extends BaseRepository {
       headers,
     );
 
-    log('Register repository: ${response.body}');
     return response;
   }
 

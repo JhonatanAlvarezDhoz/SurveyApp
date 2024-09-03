@@ -4,8 +4,11 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:survey_app/modules/common/constants/storage.dart';
+import 'package:survey_app/modules/login/data/models/m_user_session.dart';
 import 'package:survey_app/modules/login/data/use_case/uc_login..dart';
 import 'package:survey_app/modules/login/data/use_case/uc_register.dart';
+import 'package:survey_app/utils/secure_storage.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
@@ -15,6 +18,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       : super(const LoginState()) {
     on<RegisterSendForm>(_sendRegister);
     on<LoginSendForm>(_sendLogin);
+    on<LogoutEvent>(_logoutSession);
   }
 
   final RegisterUseCase registerUseCase;
@@ -69,12 +73,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     Map<String, dynamic>? formValues = event.loginFormKey?.currentState?.value;
 
     try {
-      dynamic response = await loginUseCase.call(
+      UserSession response = await loginUseCase.call(
           params: LoginUseCaseParams(body: formValues!));
-      log(response.toString());
+
       emit(state.copyWith(
           loginStatus: LoginStatus.success,
-          message: 'Usuario logueado Exitosamente'));
+          message: 'Usuario logueado Exitosamente',
+          session: response));
+
+      SecureStorage()
+          .writeSecureData(Storage.accessToken, response.accessToken);
     } catch (e) {
       log("LOGIN BLOC LOGUIN: $e");
       emit(state.copyWith(
@@ -82,7 +90,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         errorText: "Error al loguear: ${e.toString()}",
       ));
     }
-    log('_sendLogin');
-    log(formValues.toString());
+  }
+
+  void _logoutSession(LogoutEvent event, Emitter emit) async {
+    emit(state.copyWith(
+      loginStatus: LoginStatus.loading,
+    ));
+
+    await SecureStorage().deleteSecureData(Storage.accessToken);
+
+    emit(state.copyWith(
+      loginStatus: LoginStatus.initial,
+    ));
   }
 }

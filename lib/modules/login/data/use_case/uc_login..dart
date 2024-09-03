@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:survey_app/modules/common/data/use_case/use_case.dart';
+import 'package:survey_app/modules/login/data/models/m_user_session.dart';
 import 'package:survey_app/modules/login/data/repository/r_login.dart';
 
 class LoginUseCaseParams extends Params {
@@ -12,7 +13,7 @@ class LoginUseCaseParams extends Params {
   final Map<String, dynamic> body;
 }
 
-class LoginUseCase extends UseCase<Map<String, dynamic>, LoginUseCaseParams> {
+class LoginUseCase extends UseCase<UserSession, LoginUseCaseParams> {
   LoginUseCase({
     required this.repository,
   });
@@ -20,12 +21,12 @@ class LoginUseCase extends UseCase<Map<String, dynamic>, LoginUseCaseParams> {
   final LoginRepository repository;
 
   @override
-  Future<Map<String, dynamic>> call({LoginUseCaseParams? params}) async {
+  Future<UserSession> call({LoginUseCaseParams? params}) async {
     http.Response response = await repository.login(params!.body);
     switch (response.statusCode) {
       case 200:
-        Map<String, dynamic> message = json.decode(response.body);
-        return message;
+        UserSession session = UserSession.fromJson(json.decode(response.body));
+        return session;
       case 403:
         throw UseCaseException(
             json.decode(utf8.decode(response.bodyBytes))["error"]);
