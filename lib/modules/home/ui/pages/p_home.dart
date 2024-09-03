@@ -4,6 +4,8 @@ import 'package:survey_app/modules/common/widgets/w_alert_dialog.dart';
 import 'package:survey_app/modules/home/controllers/bloc/home_bloc.dart';
 import 'package:survey_app/modules/home/ui/widgets/w_bottom_navigator_widget.dart';
 import 'package:survey_app/modules/home/ui/widgets/w_pages_widget.dart';
+import 'package:survey_app/modules/login/bloc/login_bloc.dart';
+import 'package:survey_app/routes/app_routes.dart';
 import 'package:survey_app/themes/theme_colors.dart';
 
 class HomePage extends StatefulWidget {
@@ -54,9 +56,9 @@ class _HomePageState extends State<HomePage> {
                   contentText: "Cerrar sesión",
                   titleText: "¿Seguro que deseas cerrar la sesión?",
                   onAction: () {
-                    /*  context.read<LoginBloc>().add(const LogoutEvent());
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        AppRoutes.select, (_) => false); */
+                    context.read<LoginBloc>().add(const LogoutEvent());
+                    Navigator.of(context)
+                        .pushNamedAndRemoveUntil(AppRoutes.login, (_) => false);
                   },
                   onCancel: () => Navigator.of(context).pop(),
                 );

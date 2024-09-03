@@ -28,3 +28,10 @@ class LoginSendForm extends LoginEvent {
   @override
   List<Object?> get props => [loginFormKey];
 }
+
+class LogoutEvent extends LoginEvent {
+  const LogoutEvent();
+
+  @override
+  List<Object?> get props => [];
+}
