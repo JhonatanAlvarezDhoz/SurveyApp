@@ -8,39 +8,39 @@ UserSession userSessionFromJson(String str) =>
 String userSessionToJson(UserSession data) => json.encode(data.toJson());
 
 class UserSession extends Equatable {
-  final String? message;
+  final String? username;
   final String accessToken;
-  final String? refreshToken;
+  final String? role;
 
   const UserSession({
-    this.message,
+    this.username,
     required this.accessToken,
-    this.refreshToken,
+    this.role,
   });
 
   UserSession copyWith({
-    String? message,
+    String? username,
     String? accessToken,
-    String? refreshToken,
+    String? role,
   }) =>
       UserSession(
-        message: message ?? this.message,
+        username: username ?? this.username,
         accessToken: accessToken ?? this.accessToken,
-        refreshToken: refreshToken ?? this.refreshToken,
+        role: role ?? this.role,
       );
 
   factory UserSession.fromJson(Map<String, dynamic> json) => UserSession(
-        message: json["message"],
+        username: json["username"],
         accessToken: json["access_token"],
-        refreshToken: json["refresh_token"],
+        role: json["role"],
       );
 
   Map<String, dynamic> toJson() => {
-        "message": message,
+        "username": username,
         "access_token": accessToken,
-        "refresh_token": refreshToken,
+        "role": role,
       };
 
   @override
-  List<Object?> get props => [message, accessToken, refreshToken];
+  List<Object?> get props => [username, accessToken, role];
 }
