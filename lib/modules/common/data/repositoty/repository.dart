@@ -16,7 +16,7 @@ class BaseRepository {
 
   Future<http.Response> post(
     String url,
-    Map<String, dynamic> body,
+    dynamic body,
     Map<String, String>? headers,
   ) async {
     return client.post(Uri.parse("$baseUrl$url"),

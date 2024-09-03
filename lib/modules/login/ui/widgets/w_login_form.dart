@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:survey_app/modules/common/constants/app_sizes.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:survey_app/modules/common/constants/app_sizes.dart';
+import 'package:survey_app/modules/common/widgets/w_custom_text.dart';
 import 'package:survey_app/modules/common/widgets/w_rounded_text_form_field.dart';
 import 'package:survey_app/modules/common/widgets/w_social_media_icons.dart';
 import 'package:survey_app/modules/common/widgets/w_theme_button.dart';
 import 'package:survey_app/modules/common/widgets/widgets.dart';
 import 'package:survey_app/modules/login/bloc/login_bloc.dart';
+import 'package:survey_app/routes/app_routes.dart';
+import 'package:survey_app/themes/theme_colors.dart';
 
-class RegisterForm extends StatefulWidget {
-  const RegisterForm({super.key, required this.formKey});
+class LoginForm extends StatefulWidget {
+  const LoginForm({super.key, required this.formKey});
   final GlobalKey<FormBuilderState> formKey;
   @override
-  State<RegisterForm> createState() => _RegisterFormState();
+  State<LoginForm> createState() => _LoginFormState();
 }
 
-class _RegisterFormState extends State<RegisterForm> {
+class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
@@ -38,13 +41,13 @@ class _RegisterFormState extends State<RegisterForm> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             CustomText(
-                              text: "Hola!",
+                              text: "Bienvenido!",
                               fontSize: 60,
                               fontWeight: FontWeight.bold,
                             ),
                             gapH12,
                             CustomText(
-                              text: "Crea una nueva cuenta",
+                              text: "Ingresa con tus datos!",
                               fontSize: 20,
                               fontWeight: FontWeight.w300,
                             ),
@@ -55,21 +58,6 @@ class _RegisterFormState extends State<RegisterForm> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          RoundedTextFormField(
-                            name: 'username',
-                            hintText: 'Ingresa tu nombre de usuario',
-                            maxWidth: constraints.maxWidth,
-                            validator: FormBuilderValidators.compose([
-                              FormBuilderValidators.required(
-                                errorText: "El usuario es requerido",
-                              ),
-                              FormBuilderValidators.match(
-                                RegExp(r'^[a-zA-Z0-9._%+-]{4,9}$'),
-                                errorText: "Usuario no válido",
-                              ),
-                            ]),
-                          ),
-                          gapH32,
                           RoundedTextFormField(
                             name: 'email',
                             hintText: 'Ingresa tu email',
@@ -105,25 +93,42 @@ class _RegisterFormState extends State<RegisterForm> {
                               ),
                             ]),
                           ),
-                        ],
-                      ),
-                      gapH32,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
+                          gapH32,
                           ThemeButton(
-                            text: 'Registrase',
-                            buttonSize: const Size(250, 50),
-                            borderRadius: BorderRadius.circular(8),
-                            onPressed: () {
-                              context.read<LoginBloc>().add(RegisterSendForm(
-                                  registerFormKey: widget.formKey));
-                            },
-                          )
+                              text: 'Iniciar Sesion',
+                              buttonSize: const Size(250, 50),
+                              borderRadius: BorderRadius.circular(8),
+                              onPressed: () {
+                                context.read<LoginBloc>().add(LoginSendForm(
+                                    loginFormKey: widget.formKey));
+                              }),
+                          gapH20,
+                          CustomText(
+                            text: 'Olvidaste tus credenciales??',
+                            color: ThemeColors.primary,
+                          ),
                         ],
                       ),
                       gapH20,
-                      const SocialMediaIcons()
+                      SocialMediaIcons(
+                        footer: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CustomText(text: 'No estas registrado?'),
+                            gapW4,
+                            GestureDetector(
+                              child: CustomText(
+                                text: 'Registrate!',
+                                color: ThemeColors.primary,
+                              ),
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, AppRoutes.register);
+                              },
+                            ),
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 );
