@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:survey_app/modules/home/controllers/bloc/home_bloc.dart';
+import 'package:survey_app/modules/home/ui/pages/p_encuesta_base.dart';
+import 'package:survey_app/modules/home/ui/pages/p_profile.dart';
 import 'package:survey_app/modules/home/ui/pages/p_survey_home.dart';
 
 class PagesWidget extends StatelessWidget {
@@ -17,8 +19,8 @@ class PagesWidget extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           children: const <Widget>[
             SurveyHome(),
-            //Pagetwo(),
-            //PageThree(),
+            EncuestaBase(),
+            UserProfile(),
           ],
         );
       },
