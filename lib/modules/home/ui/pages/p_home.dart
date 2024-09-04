@@ -57,8 +57,8 @@ class _HomePageState extends State<HomePage> {
                   titleText: "¿Seguro que deseas cerrar la sesión?",
                   onAction: () {
                     context.read<LoginBloc>().add(const LogoutEvent());
-                    Navigator.of(context)
-                        .pushNamedAndRemoveUntil(AppRoutes.login, (_) => false);
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        AppRoutes.welcome, (_) => false);
                   },
                   onCancel: () => Navigator.of(context).pop(),
                 );
