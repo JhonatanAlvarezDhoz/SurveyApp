@@ -38,6 +38,7 @@ class _LoginFormState extends State<LoginForm> {
                     contentText: state.errorText,
                     customActions: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           OutlinedThemeButton(
                             text: "Aceptar",
@@ -65,6 +66,7 @@ class _LoginFormState extends State<LoginForm> {
                     svgIcon: SvgPicture.asset('assets/icons/check.svg'),
                     customActions: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           OutlinedThemeButton(
                             text: "Aceptar",
