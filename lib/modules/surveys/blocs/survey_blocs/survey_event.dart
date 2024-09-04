@@ -11,3 +11,4 @@ class GetSurvey extends SurveyEvent {
   const GetSurvey();
 }
 
+class GetAllSurveyEvent extends SurveyEvent {}

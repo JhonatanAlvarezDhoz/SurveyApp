@@ -1,10 +1,8 @@
-
 import 'package:equatable/equatable.dart';
 
 import '../../data/entities/survey_model.dart';
 
 class SurveyState extends Equatable {
-  
   const SurveyState();
 
   @override
@@ -24,6 +22,14 @@ class SurveyLoaded extends SurveyState {
   List<Object> get props => [survey];
 }
 
+class AllSurveyLoaded extends SurveyState {
+  final List<Survey> listsurvey;
+
+  const AllSurveyLoaded(this.listsurvey);
+
+  @override
+  List<Object> get props => [listsurvey];
+}
 
 class SurveyError extends SurveyState {
   final String message;

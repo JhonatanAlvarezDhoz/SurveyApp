@@ -11,10 +11,9 @@ class SurveyBloc extends Bloc<SurveyEvent, SurveyState> {
 
   SurveyBloc({
     required this.getSurveyUseCase,
-    
   }) : super(SurveyInitial()) {
     on<GetSurvey>(_onGetSurvey);
-    
+    on<GetAllSurveyEvent>(_onGetAllSurvey);
   }
 
   Future<void> _onGetSurvey(GetSurvey event, Emitter<SurveyState> emit) async {
@@ -25,13 +24,22 @@ class SurveyBloc extends Bloc<SurveyEvent, SurveyState> {
       final survey = getSurveyById(surveyList, surveyId);
 
       emit(SurveyLoaded(survey!));
-      
     } catch (e) {
       emit(SurveyError(e.toString()));
     }
   }
 
+  Future<void> _onGetAllSurvey(
+      GetAllSurveyEvent event, Emitter<SurveyState> emit) async {
+    emit(SurveyLoading());
+    try {
+      final List<Survey> surveyList = await getSurveyUseCase();
 
+      emit(AllSurveyLoaded(surveyList));
+    } catch (e) {
+      emit(SurveyError(e.toString()));
+    }
+  }
 }
 
 int getRandomSurveyId(int min, int max) {
