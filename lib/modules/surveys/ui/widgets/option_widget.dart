@@ -1,3 +1,5 @@
+import 'package:survey_app/themes/theme_colors.dart';
+
 import '../../data/entities/option_model.dart';
 import '../../blocs/options_blocs/option_bloc.dart';
 import '../../blocs/options_blocs/option_state.dart';
@@ -11,7 +13,10 @@ class Options extends StatefulWidget {
   final String questionText;
   const Options({
     super.key,
-    required this.questionId, required this.questionText, required this.questionOrder, required this.surveyId,
+    required this.questionId,
+    required this.questionText,
+    required this.questionOrder,
+    required this.surveyId,
   });
 
   @override
@@ -31,36 +36,43 @@ class _OptionsState extends State<Options> {
         final optionList = state.optionList
             .where((option) => option.questionId == widget.questionId)
             .toList();
-            print('Options IDs: ${optionList.toString()}');
+        print('Options IDs: ${optionList.toString()}');
         return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    '${widget.questionOrder}. ${widget.questionText}',
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              '${widget.questionOrder}. ${widget.questionText}',
+              style: const TextStyle(
+                color: ThemeColors.primary,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 16),
+            Column(
+              children: optionList.map((option) {
+                return RadioListTile(
+                  activeColor: ThemeColors.primary,
+                  title: Text(
+                    option.optionText,
+                    style: TextStyle(
+                        color: ThemeColors.primaryDark,
+                        fontWeight: FontWeight.w500),
                   ),
-                  SizedBox(height: 16),
-                  Column(
-                    children: optionList.map((option) {
-                      return RadioListTile(
-                        title: Text(option.optionText),
-                        value: option,
-                        groupValue: _selectedOption,
-                        onChanged: (value) {
-                          setState(() {
-                            _selectedOption = value!;
-                          });
-                          print('Option Selected: ${_selectedOption.optionText}');
-                        },
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(height: 16),
-                ],
-              );
+                  value: option,
+                  groupValue: _selectedOption,
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedOption = value!;
+                    });
+                    print('Option Selected: ${_selectedOption.optionText}');
+                  },
+                );
+              }).toList(),
+            ),
+            SizedBox(height: 16),
+          ],
+        );
       } else {
         return const Center(child: Text('No hay elementos cargados.'));
       }
