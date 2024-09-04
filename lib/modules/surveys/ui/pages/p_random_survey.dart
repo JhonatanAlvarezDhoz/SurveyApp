@@ -1,3 +1,7 @@
+import 'package:survey_app/themes/theme_colors.dart';
+
+import '../../../../routes/app_routes.dart';
+
 import '../../blocs/options_blocs/option_bloc.dart';
 import '../../blocs/options_blocs/option_event.dart';
 
@@ -7,8 +11,6 @@ import '../../blocs/question_blocs/question_bloc.dart';
 import '../../blocs/survey_blocs/survey_bloc.dart';
 import '../../blocs/survey_blocs/survey_event.dart';
 import '../../blocs/survey_blocs/survey_state.dart';
-
-import '../widgets/question_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -45,66 +47,60 @@ class _RandomSurveyState extends State<RandomSurvey> {
       } else if (state is SurveyLoaded) {
         print('Survey ID: ${state.survey.id}');
         questionListBloc.add(const GetQuestionList());
-        return Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              Text(
-                textAlign: TextAlign.center,
-                state.survey.title,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Text(
-                textAlign: TextAlign.justify,
-                state.survey.description,
-                style: const TextStyle(fontSize: 20),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              QuestionCard(
-                surveyId: state.survey.id,
-                questionOrder: questionOrder,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  FloatingActionButton(
-                    onPressed: () {
-                      setState(() {
-                        questionOrder > 1
-                            ? questionOrder -= 1
-                            : questionOrder = questionOrder;
-                      });
-                    },
-                    child: const Icon(Icons.arrow_back),
-                  ),
-                  const SizedBox(
-                    width: 30,
-                  ),
-                  FloatingActionButton(
-                    onPressed: () {
-                      setState(() {
-                        questionOrder < 10
-                            ? questionOrder += 1
-                            : questionOrder = questionOrder;
-                      });
-                    },
-                    child: const Icon(Icons.arrow_forward),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-            ],
+        return Card(
+          shadowColor: ThemeColors.primary,
+          elevation: 5,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          margin: const EdgeInsets.all(20),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              mainAxisSize: MainAxisSize
+                  .min, // This makes the Card size adapt to its content
+              crossAxisAlignment:
+                  CrossAxisAlignment.start, // Align text to the left
+              children: [
+                Text(
+                  "${state.survey.id}. ${state.survey.title}",
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      color: ThemeColors.primary),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  state.survey.description,
+                  textAlign: TextAlign.justify,
+                  style: const TextStyle(
+                      fontSize: 14, color: ThemeColors.primaryDark),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          Navigator.pushNamed(
+                            context,
+                            AppRoutes
+                                .questions, // The named route for QuestionPage
+                            arguments: state
+                                .survey.id, // Pass the surveyId as argument
+                          );
+                        },
+                        icon: const Icon(
+                          size: 30,
+                          Icons.arrow_forward,
+                          color: ThemeColors.primary,
+                        )),
+                  ],
+                )
+              ],
+            ),
           ),
         );
       } else {
