@@ -1,3 +1,4 @@
+import 'package:survey_app/modules/common/pages/p_splash.dart';
 import 'package:survey_app/modules/home/ui/pages/p_home.dart';
 import 'package:survey_app/modules/login/ui/pages/p_login.dart';
 import 'package:survey_app/modules/login/ui/pages/p_register.dart';
@@ -10,6 +11,8 @@ import 'package:flutter/material.dart';
 class AppPages {
   static Route<dynamic> routes(RouteSettings settings) {
     switch (settings.name) {
+      case AppRoutes.splash:
+        return CupertinoPageRoute(builder: (_) => const SplashPage());
       case AppRoutes.home:
         return CupertinoPageRoute(builder: (_) => const HomePage());
       case AppRoutes.register:
