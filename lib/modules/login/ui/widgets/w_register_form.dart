@@ -37,6 +37,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     contentText: state.errorText,
                     customActions: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           OutlinedThemeButton(
                             text: "Aceptar",
@@ -64,6 +65,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     svgIcon: SvgPicture.asset('assets/icons/check.svg'),
                     customActions: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           OutlinedThemeButton(
                             text: "Aceptar",

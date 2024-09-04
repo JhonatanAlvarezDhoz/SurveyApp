@@ -94,6 +94,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       String usernameFromToken = userInfo['username'];
       String roleFromToken = userInfo['role'];
 
+      SecureStorage().writeSecureData(Storage.username, usernameFromToken);
+      SecureStorage().writeSecureData(Storage.role, roleFromToken);
+
       // se actauliza la sesion que solo tenia el token
       UserSession updatedSession = response.copyWith(
         username: usernameFromToken,
@@ -120,6 +123,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     ));
 
     await SecureStorage().deleteSecureData(Storage.accessToken);
+    await SecureStorage().deleteSecureData(Storage.username);
+    await SecureStorage().deleteSecureData(Storage.role);
 
     emit(state.copyWith(
       loginStatus: LoginStatus.initial,
