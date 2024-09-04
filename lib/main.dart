@@ -57,7 +57,7 @@ class _MainAppState extends State<MainApp> {
             child: child!,
           );
         },
-        initialRoute: AppRoutes.welcome,
+        initialRoute: AppRoutes.splash,
         onGenerateRoute: AppPages.routes,
       ),
     );
