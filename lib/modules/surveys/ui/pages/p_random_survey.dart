@@ -46,63 +46,65 @@ class _RandomSurveyState extends State<RandomSurvey> {
         } else if (state is SurveyLoaded) {
           print('Survey ID: ${state.survey.id}');
           questionListBloc.add(GetQuestionList());
-          return Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                Text(
-                  textAlign: TextAlign.center,
-                  state.survey.title,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 25),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Text(
-                  textAlign: TextAlign.justify,
-                  state.survey.description,
-                  style: TextStyle(fontSize: 20),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                QuestionCard(
-                  surveyId: state.survey.id,
-                  questionOrder: questionOrder,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    FloatingActionButton(
-                  onPressed: () {
-                    setState(() {
-                      questionOrder > 1 ? questionOrder -= 1 : questionOrder = questionOrder;
-                    });
-                  },
-                  child: const Icon(Icons.arrow_back),
-                ),const SizedBox(
-                  width: 30,
-                ),
-                    FloatingActionButton(
-                  onPressed: () {
-                    setState(() {
-                      questionOrder < 10 ? questionOrder += 1 : questionOrder = questionOrder;
-                    });
-                  },
-                  child: const Icon(Icons.arrow_forward),
-                ),
-                
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                
-              ],
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  Text(
+                    textAlign: TextAlign.center,
+                    state.survey.title,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 25),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Text(
+                    textAlign: TextAlign.justify,
+                    state.survey.description,
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  QuestionCard(
+                    surveyId: state.survey.id,
+                    questionOrder: questionOrder,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      FloatingActionButton(
+                    onPressed: () {
+                      setState(() {
+                        questionOrder > 1 ? questionOrder -= 1 : questionOrder = questionOrder;
+                      });
+                    },
+                    child: const Icon(Icons.arrow_back),
+                  ),const SizedBox(
+                    width: 30,
+                  ),
+                      FloatingActionButton(
+                    onPressed: () {
+                      setState(() {
+                        questionOrder < 10 ? questionOrder += 1 : questionOrder = questionOrder;
+                      });
+                    },
+                    child: const Icon(Icons.arrow_forward),
+                  ),
+                  
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  
+                ],
+              ),
             ),
           );
         } else {
