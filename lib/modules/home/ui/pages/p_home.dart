@@ -53,8 +53,8 @@ class _HomePageState extends State<HomePage> {
               context: context,
               builder: (context) {
                 return CustomAlertDialog(
-                  contentText: "Cerrar sesión",
-                  titleText: "¿Seguro que deseas cerrar la sesión?",
+                  contentText: "¿Seguro que deseas cerrar la sesión?",
+                  titleText: "Cerrar sesión",
                   onAction: () {
                     context.read<LoginBloc>().add(const LogoutEvent());
                     Navigator.of(context).pushNamedAndRemoveUntil(
